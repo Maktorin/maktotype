@@ -20,7 +20,9 @@ import * as DB from "./db";
 import "./ui";
 import "./elements/settings/account-settings-notice";
 import "./controllers/ad-controller";
-import Config, { loadFromLocalStorage } from "./config";
+import Config, { loadFromLocalStorage, loadPromise } from "./config";
+import * as ConfigEvent from "./observables/config-event";
+import * as I18n from "./i18n";
 import * as TestStats from "./test/test-stats";
 import * as Replay from "./test/replay";
 import * as TestTimer from "./test/test-timer";
@@ -57,6 +59,14 @@ function addToGlobal(items: Record<string, unknown>): void {
 }
 
 void loadFromLocalStorage();
+void loadPromise.then(() => {
+  void I18n.init(Config.uiLanguage);
+});
+ConfigEvent.subscribe((key, value) => {
+  if (key === "uiLanguage") {
+    void I18n.init(value as any);
+  }
+});
 void VersionButton.update();
 Focus.set(true, true);
 

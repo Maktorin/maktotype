@@ -1575,6 +1575,20 @@ export function setLanguage(language: Language, nosave?: boolean): boolean {
   return true;
 }
 
+export function setUiLanguage(
+  language: ConfigSchemas.UiLanguage,
+  nosave?: boolean
+): boolean {
+  if (!isConfigValueValid("ui language", language, ConfigSchemas.UiLanguageSchema))
+    return false;
+
+  config.uiLanguage = language;
+  saveToLocalStorage("uiLanguage", nosave);
+  ConfigEvent.dispatch("uiLanguage", config.uiLanguage);
+
+  return true;
+}
+
 export function setMonkey(monkey: boolean, nosave?: boolean): boolean {
   if (!isConfigValueValidBoolean("monkey", monkey)) return false;
 
@@ -2024,6 +2038,7 @@ export async function apply(
     setQuoteLength(configObj.quoteLength, true);
     setWordCount(configObj.words, true);
     setLanguage(configObj.language, true);
+    setUiLanguage(configObj.uiLanguage, true);
     setLayout(configObj.layout, true);
     setFontSize(configObj.fontSize, true);
     setMaxLineWidth(configObj.maxLineWidth, true);

@@ -331,6 +331,11 @@ async function initGroups(): Promise<void> {
     UpdateConfig.setLanguage,
     "select"
   ) as SettingsGroup<ConfigValue>;
+  groups["uiLanguage"] = new SettingsGroup(
+    "uiLanguage",
+    UpdateConfig.setUiLanguage,
+    "select"
+  ) as SettingsGroup<ConfigValue>;
   groups["fontSize"] = new SettingsGroup(
     "fontSize",
     UpdateConfig.setFontSize,
@@ -446,6 +451,13 @@ async function fillSettingsPage(): Promise<void> {
     settings: {
       searchPlaceholder: "search",
     },
+  });
+  new SlimSelect({
+    select: ".pageSettings .section[data-config-name='uiLanguage'] select",
+    data: [
+      { text: "English", value: "en", selected: Config.uiLanguage === "en" },
+      { text: "Russian", value: "ru", selected: Config.uiLanguage === "ru" },
+    ],
   });
 
   const layoutToOption: (layout: LayoutName) => OptionOptional = (layout) => ({
@@ -1344,6 +1356,14 @@ ConfigEvent.subscribe((eventKey, eventValue) => {
     $(
       `.pageSettings .section[data-config-name='autoSwitchThemeInputs'] select.dark option[value="${eventValue}"]`
     ).attr("selected", "true");
+  }
+  if (eventKey === "uiLanguage") {
+    const sel = document.querySelector(
+      ".pageSettings .section[data-config-name='uiLanguage'] select"
+    ) as HTMLSelectElement | null;
+    if (sel) {
+      sel.value = eventValue as string;
+    }
   }
   //make sure the page doesnt update a billion times when applying a preset/config at once
   if (configEventDisabled || eventKey === "saveToLocalStorage") return;

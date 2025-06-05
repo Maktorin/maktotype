@@ -34,6 +34,7 @@ const obj = {
   mode: "time",
   quoteLength: [1],
   language: "english",
+  uiLanguage: "en",
   fontSize: 2,
   freedomMode: false,
   difficulty: "normal",

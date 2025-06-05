@@ -1,0 +1,14 @@
+{
+  "startTest": "Начать тест",
+  "leaderboards": "Таблица лидеров",
+  "about": "О сайте",
+  "settings": "Настройки",
+  "goHome": "На главную",
+  "register": "Регистрация",
+  "login": "Вход",
+  "pageNotFound": "Упс! Страница не найдена.",
+  "uiLanguage": "Язык интерфейса",
+  "uiLanguageDesc": "Выберите язык сайта",
+  "langEnglish": "Английский",
+  "langRussian": "Русский"
+}
