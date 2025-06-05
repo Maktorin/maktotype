@@ -4,6 +4,9 @@ import * as Themes from "./themes";
 import * as Layouts from "./layouts";
 import { LanguageSchema } from "./languages";
 
+export const UiLanguageSchema = z.enum(["en", "ru"]);
+export type UiLanguage = z.infer<typeof UiLanguageSchema>;
+
 export const SmoothCaretSchema = z.enum(["off", "slow", "medium", "fast"]);
 export type SmoothCaret = z.infer<typeof SmoothCaretSchema>;
 
@@ -364,6 +367,7 @@ export const ConfigSchema = z
     mode: Shared.ModeSchema,
     quoteLength: QuoteLengthConfigSchema,
     language: LanguageSchema,
+    uiLanguage: UiLanguageSchema,
     fontSize: FontSizeSchema,
     freedomMode: z.boolean(),
     difficulty: DifficultySchema,
@@ -478,6 +482,7 @@ export const ConfigGroupsLiteral = {
   mode: "test",
   quoteLength: "test",
   language: "test",
+  uiLanguage: "appearance",
   fontSize: "appearance",
   freedomMode: "input",
   difficulty: "behavior",
